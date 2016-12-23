@@ -10,12 +10,14 @@ var credential = require('./config/credential')
 	, http = require('http')
 	, accountWeb = require('./routes/accountWeb')
 	, marketWeb =  require('./routes/marketWeb')
+	, orderWeb =  require('./routes/orderWeb')
 	, login = require('./routes/login');
 
 GLOBAL.debug = true;
 GLOBAL.credential = credential;
 GLOBAL.url = siteUrl;
-GLOBAL.server = "sandbox"; // VALID values are "sandbox" or "prod"
+//GLOBAL.server = "sandbox"; // VALID values are "sandbox" or "prod"
+GLOBAL.server = "prod"; // VALID values are "sandbox" or "prod"
 
 var randomLetters = (Math.random() + 1).toString(36).substring(2,30); // generates random letters necessary for session and cookies
 
@@ -63,6 +65,17 @@ app.all('/account/transactions/details', accountWeb.transactionsDetails);
 app.all('/market/productlookup', marketWeb.productlookup);
 app.all('/market/quote', marketWeb.getQuote);
 
+/*
+app.all('orders/listOrders', orderWeb.listOrders);
+app.all('orders/previewEquityOrders', orderWeb.previewEquityOrders);
+app.all('orders/placeEquityOrders', orderWeb.placeEquityOrders);
+app.all('orders/placeEquityOrderChange', orderWeb.placeEquityOrderChange);
+app.all('orders/previewOptionOrder', orderWeb.previewOptionOrder);
+app.all('orders/placeOptionOrder', orderWeb.placeOptionOrder);
+app.all('orders/previewOptionOrderChange', orderWeb.previewOptionOrderChange);
+app.all('orders/placeOptionOrderChange', orderWeb.placeOptionOrderChange);
+app.all('orders/cancelOrder', orderWeb.cancelOrder);
+*/
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));
